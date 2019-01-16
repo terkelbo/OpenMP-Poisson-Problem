@@ -1,4 +1,6 @@
+#Error files and .er folders
 *.err
+*.er
 
 # Prerequisites
 *.d
