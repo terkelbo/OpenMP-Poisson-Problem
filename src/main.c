@@ -44,23 +44,33 @@ main( int argc, char *argv[] ){
 	
 
 	/* Allocate memory for all arrays */
-	u_old = memalign(0x40, (n + 2)*(n + 2)* sizeof(double *));
+	if(strcmp(algo,"jacobi")==0){
+		u_old = memalign(0x40, (n + 2)*(n + 2)* sizeof(double *));
+	}
 	u_new = memalign(0x40, (n + 2)*(n + 2)* sizeof(double *)); 
 	f = memalign(0x40, (n + 2)*(n + 2)* sizeof(double *));
-	if (u_old == NULL || u_new == NULL | f == NULL) {
-	    fprintf(stderr, "Memory allocation error...\n");
-	    exit(EXIT_FAILURE);
+	if(strcmp(algo,"jacobi")==0){
+		if (u_old == NULL  || u_new == NULL | f == NULL) {
+		    fprintf(stderr, "Memory allocation error...\n");
+		    exit(EXIT_FAILURE);
+		}
+	}
+	else{
+		if (u_new == NULL | f == NULL) {
+		    fprintf(stderr, "Memory allocation error...\n");
+		    exit(EXIT_FAILURE);
+		}
 	}
 
 	/* Initialize arrays */
 	if(strcmp(test,"test")==0){
 		sol = memalign(0x40, (n + 2)*(n + 2)* sizeof(double *));
-		init_u_test(n, u_old, u_new);
+		init_u_test(n, algo, u_old, u_new);
 		init_f_test(n, h, f);
 		init_sol(n, h, sol);
 	}
 	else{
-		init_u(n, u_start, u_old, u_new);
+		init_u(n, algo, u_start, u_old, u_new);
 		init_f(n, h, f);
 	}
 	
@@ -75,18 +85,20 @@ main( int argc, char *argv[] ){
 			jacobi(n, h, u_old, u_new, f); 	
 		}
 		else{
-			gaussseidel(n, h, u_old, u_new, f);
+			gaussseidel(n, h, u_new, f);
 		}
 		
 		//calculate 2-norm between old and new
 		//d = euclidian_norm(n, u_old, u_new);
 
 		//now that the values are updated we copy new values into the old array
-		#pragma omp single
-		{
-		temp = u_old;
-		u_old = u_new;
-		u_new = temp;
+		if(strcmp(algo,"jacobi")==0){
+			#pragma omp single
+			{
+			temp = u_old;
+			u_old = u_new;
+			u_new = temp;	
+			}
 		}
 	}
 	}

@@ -1,9 +1,9 @@
 #ifndef __INITTOOLS_H
 #define __INITTOOLS_H
 
-void init_u(int n, double u_start, double * restrict u_old, double * restrict u_new);
+void init_u(int n, char * algo, double u_start, double * restrict u_old, double * restrict u_new);
 
-void init_u_test(int n, double * restrict u_old, double * restrict u_new);
+void init_u_test(int n, char * algo, double * restrict u_old, double * restrict u_new);
 
 void init_f(int n, double h, double * restrict f);
 
