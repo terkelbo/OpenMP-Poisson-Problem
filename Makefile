@@ -1,4 +1,4 @@
-TARGET  = poisson
+TARGET  = poisson_openmp1
 
 SRC_DIR = src
 OBJ_DIR = obj
