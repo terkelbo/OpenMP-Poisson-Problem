@@ -24,7 +24,7 @@ for t in $THREADS
 	do 
 	for rows in $N
 		do
-		output=$(OMP_WAIT_POLICY=active OMP_NUM_THREADS=$t OMP_SCHEDULE=dynamic,8 ./poisson $rows)
+		output=$(OMP_WAIT_POLICY=active OMP_NUM_THREADS=$t OMP_SCHEDULE=dynamic,8 ./poisson_openmp1 $rows)
 		echo "$t $output" >> data/statfun.dat
 	done
 done
