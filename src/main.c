@@ -93,7 +93,7 @@ main( int argc, char *argv[] ){
 	}
 	te = omp_get_wtime() - te;
 	mflops   = 1.0e-06*n*n*max_it*CHECK_FLOP/te;
-	memory = 8*n*n/1000; // in Kbytes
+	memory = (double)(8.0*n*n)/1000; // in Kbytes
 
 	if(strcmp(test,"test")==0){
 		d = euclidian_norm(n, sol, u_new);
