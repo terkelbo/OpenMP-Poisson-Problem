@@ -7,7 +7,7 @@ Created on Wed Jan 16 19:29:01 2019
 
 import pandas as pd
 import matplotlib as mpl
-mpl.use('Agg')
+#mpl.use('Agg')
 import matplotlib.pyplot as plt
 from matplotlib.ticker import ScalarFormatter
 
