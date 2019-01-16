@@ -7,14 +7,14 @@ SCHEDULE=$3
 N="100 200 300 400 500 600 700 800 900 1000 1200 1400 1700 2000 2300 2600 2800"
 N="100 200 300 400"
 
-/bin/rm -rf data/$ALGO.$m.$THREADS.$SCHEDULE.dat
+/bin/rm -rf data/$ALGO.$THREADS.$SCHEDULE.dat
 
 OMP_NUM_THREADS=$THREADS
 OMP_SCHEDULE=$SCHEDULE
 
 for m in $N
 do
-    ./poisson $m $ALGO | grep -v CPU >> data/$ALGO.$m.$THREADS.$SCHEDULE.dat
+    ./poisson $m $ALGO | grep -v CPU >> data/$ALGO.$THREADS.$SCHEDULE.dat
 done
     
 exit 0
