@@ -6,6 +6,7 @@
 #include "inittools.h"
 #include "jacobi.h"
 #include "gaussseidel.h"
+#include <omp.h>
 
 int
 main( int argc, char *argv[] ){
@@ -15,7 +16,8 @@ main( int argc, char *argv[] ){
 	double u_start = 0.0, d = 100000.0, threshold = 0.001;
 	double ** u_old, ** u_new, ** f;
 	double ** sol;
-
+	double memory, te, mflops;
+	
 	if(argc >= 2){
 		n = atoi(argv[1]);
 	}
@@ -59,6 +61,7 @@ main( int argc, char *argv[] ){
 		init_f(n, h, f);
 	}
 	
+	te = omp_get_wtime();	
 	k = 0;
 	/* Start the time loop */
 	while(d > threshold && k < max_it){
@@ -82,15 +85,19 @@ main( int argc, char *argv[] ){
 
 		//increment k
 		k += 1;
-
 	}
+	te = omp_get_wtime() - te;
+	mflops   = 1.0e-06*n*n*k*CHECK_FLOP/te;
+	memory = 8*n*n/1000; // in Kbytes
 
 	if(strcmp(test,"test")==0){
 		d = euclidian_norm(n, sol, u_new);
 		printf("Mean euclidian norm between sol and approximation is %f \n", d/(n*n));
 	}
 
-	printf("Number of iterations run was %i \n", k);
+	printf("%10.2lf %10.2lf %le %le\n", 
+	   k, memory, mflops, te);
+	
 	//print final array
 	/*
 	for(i = 0; i < (n + 2); i++){

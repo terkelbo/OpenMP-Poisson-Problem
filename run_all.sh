@@ -7,11 +7,11 @@ N="100 200 300 400"
 
 /bin/rm -rf data/$ALGO.$THREADS.dat
 
-OMP_NUM_THREADS=THREADS
+OMP_NUM_THREADS=$THREADS
 for m in $N
-do	
-	./poisson $m $ALGO | grep -v CPU >> data/$ALGO.$THREADS.dat
+do
+    ./poisson $m $ALGO | grep -v CPU >> data/$ALGO.$THREADS.dat
 done
-
-exit 0    	    					
-    	    					
+    
+exit 0
+    

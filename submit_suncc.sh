@@ -3,7 +3,7 @@
 ### -- specify queue -- 
 #BSUB -q hpcintro
 ### -- set the job Name -- 
-#BSUB -J Assignment1
+#BSUB -J Assignment2
 ### -- ask for number of cores (default: 1) -- 
 #BSUB -n 1 
 ### -- specify that the cores must be on the same host -- 
@@ -27,38 +27,12 @@
 #Load studio module
 module load studio
 
-make -f Makefile.suncc clean
-make -f Makefile.suncc OPT="-g"
+make clean
+make
 
 source ~/stdpy3/bin/activate
 
 # here follow the commands you want to execute 
-./run_all.sh suncc nopt
+./run_all.sh jacobi 1
 
-python viz.py nopt suncc
-
-
-
-make -f Makefile.suncc clean
-make -f Makefile.suncc OPT="-g -fast"
-
-source ~/stdpy3/bin/activate
-
-# here follow the commands you want to execute
-./run_all.sh suncc fast
-
-python viz.py fast suncc
-
-
-
-
-make -f Makefile.suncc clean
-make -f Makefile.suncc OPT="-g -fast -xrestrict -xunroll=10"
-
-source ~/stdpy3/bin/activate
-
-# here follow the commands you want to execute
-./run_all.sh suncc fast_loop
-
-python viz.py fast_loop suncc
 
