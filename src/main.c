@@ -100,19 +100,8 @@ main( int argc, char *argv[] ){
 		printf("Mean euclidian norm between sol and approximation is %f \n", d/(n*n));
 	}
 
-	printf("%10.2lf %10.2lf %le %le\n", 
+	printf("%10.2li %10.2lf %le %le\n", 
 	   max_it, memory, mflops, te);
-	
-	//printf("Number of iterations run was %i \n", k);
-	//print final array
-	/*
-	for(i = 0; i < (n + 2); i++){
-		for(j = 0; j < (n + 2); j++){
-			printf("%f ", u_new[i][j]);
-		}
-		printf("\n");
-	}
-	*/
 
 	free(u_old);
 	free(u_new);
