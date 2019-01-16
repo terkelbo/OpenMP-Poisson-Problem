@@ -5,60 +5,60 @@
 #define M_PI 3.14159265358979323846
 
 void
-init_u(int n, double u_start, double ** restrict u_old, double ** restrict u_new){
+init_u(int n, double u_start, double * restrict u_old, double * restrict u_new){
 
 	int i, j;
 
 	for(i = 0; i < (n + 2); i++){
 		for(j = 0; j < (n + 2); j++){
 			if(j == (n + 1) || i == 0 || i == (n + 1)){
-				u_old[i][j] = 20.0;
-				u_new[i][j] = 20.0;
+				u_old[i*(n + 2) + j] = 20.0;
+				u_new[i*(n + 2) + j] = 20.0;
 			} 
 			else if(j == 0){
-				u_old[i][j] = 0.0;
-				u_new[i][j] = 0.0;
+				u_old[i*(n + 2) + j] = 0.0;
+				u_new[i*(n + 2) + j] = 0.0;
 			}
 			else{
-				u_old[i][j] = u_start;
-				u_new[i][j] = u_start;
+				u_old[i*(n + 2) + j] = u_start;
+				u_new[i*(n + 2) + j] = u_start;
 			}
 		}
 	}
 }
 
 void
-init_u_test(int n, double ** restrict u_old, double ** restrict u_new){
+init_u_test(int n, double * restrict u_old, double * restrict u_new){
 
 	int i, j;
 
 	for(i = 0; i < (n + 2); i++){
 		for(j = 0; j < (n + 2); j++){
-			u_old[i][j] = 0.0;
-			u_new[i][j] = 0.0;
+			u_old[i*(n + 2) + j] = 0.0;
+			u_new[i*(n + 2) + j] = 0.0;
 		}
 	}
 }
 
 void
-init_f(int n, double h, double ** restrict f){
+init_f(int n, double h, double * restrict f){
 
 	int i, j;
 
 	for(i = 0; i < (n + 2); i++){
 		for(j = 0; j < (n + 2); j++){
 			if((double)(-1 + i*h) >= 0.0 && (double)(-1 + i*h) <= 0.33 && (double)(-1 + j*h) >= -0.66 && (double)(-1 + j*h) <= -0.33){
-				f[i][j] = 200;
+				f[i*(n + 2) + j] = 200;
 			}
 			else{
-				f[i][j] = 0;
+				f[i*(n + 2) + j] = 0;
 			}
 		}
 	}
 }
 
 void
-init_f_test(int n, double h, double ** restrict f){
+init_f_test(int n, double h, double * restrict f){
 
 	int i, j;
 	double x, y;
@@ -67,13 +67,13 @@ init_f_test(int n, double h, double ** restrict f){
 		for(j = 0; j < (n + 2); j++){
 			x = -1 + h*i;
 			y = -1 + h*j;
-			f[i][j] = 2*M_PI*M_PI*sin(M_PI*x)*sin(M_PI*y);
+			f[i*(n + 2) + j] = 2*M_PI*M_PI*sin(M_PI*x)*sin(M_PI*y);
 		}
 	}
 }
 
 void
-init_sol(int n, double h, double ** restrict sol){
+init_sol(int n, double h, double * restrict sol){
 
 	int i, j;
 	double x, y;
@@ -83,10 +83,10 @@ init_sol(int n, double h, double ** restrict sol){
 			x = -1 + h*i;
 			y = -1 + h*j;
 			if(x == -1 || y == -1 || x == 1 || y == 1){
-				sol[i][j] = 0.0;
+				sol[i*(n + 2) + j] = 0.0;
 			}
 			else{
-				sol[i][j] = sin(M_PI*x)*sin(M_PI*y);				
+				sol[i*(n + 2) + j] = sin(M_PI*x)*sin(M_PI*y);				
 			}
 		}
 	}
@@ -94,13 +94,13 @@ init_sol(int n, double h, double ** restrict sol){
 
 /* Routine for calculating two norm differences between two arrays */
 double
-euclidian_norm(int n, double ** restrict u_old, double ** restrict u_new){
+euclidian_norm(int n, double * restrict u_old, double * restrict u_new){
 	int i, j;
 	double sum = 0, diff;
 	
 	for(i = 0; i < (n + 2); i++){
 		for(j = 0; j < (n + 2); j++){
-			diff = (u_new[i][j] - u_old[i][j]);
+			diff = (u_new[i*(n + 2) + j] - u_old[i*(n + 2) + j]);
 			sum += diff*diff;
 		}
 	}
