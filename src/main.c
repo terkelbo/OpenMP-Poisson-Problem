@@ -18,7 +18,7 @@ main( int argc, char *argv[] ){
 	char * algo, * test;
 	double u_start = 0.0, d = 100000.0, threshold = 0.001;
 	double memory, te, mflops;
-	double * u_old, * u_new, * f;
+	double * u_old, * u_new, * f, * temp;
 	double * sol;
 
 	if(argc >= 2){
@@ -66,7 +66,7 @@ main( int argc, char *argv[] ){
 	
 	te = omp_get_wtime();	
 	/* Start the time loop */
-	#pragma omp parallel default(none) shared(n,h,u_old,u_new,f,max_it,algo) private(k,i,j)
+	#pragma omp parallel default(none) shared(n,h,u_old,u_new,f,max_it,algo,temp) private(k,i,j)
 	{
 	//while(d > threshold && k < max_it){
 	for(k = 0; k < max_it; k++){
@@ -82,13 +82,12 @@ main( int argc, char *argv[] ){
 		//d = euclidian_norm(n, u_old, u_new);
 
 		//now that the values are updated we copy new values into the old array
-		#pragma omp for schedule(runtime)
-		for(i = 0; i < (n + 2); i++){
-			for(j = 0; j < (n + 2); j++){
-				u_old[i*(n + 2) + j] = u_new[i*(n + 2) + j];
-			}
+		#pragma omp single
+		{
+		temp = u_old;
+		u_old = u_new;
+		u_new = temp;
 		}
-
 	}
 	}
 	te = omp_get_wtime() - te;
