@@ -45,10 +45,10 @@ main( int argc, char *argv[] ){
 
 	/* Allocate memory for all arrays */
 	if(strcmp(algo,"jacobi")==0){
-		u_old = memalign(0x40, (n + 2)*(n + 2)* sizeof(double *));
+		u_old = memalign(CACHE_LINE_SIZE, (n + 2)*(n + 2)* sizeof(double *));
 	}
-	u_new = memalign(0x40, (n + 2)*(n + 2)* sizeof(double *)); 
-	f = memalign(0x40, (n + 2)*(n + 2)* sizeof(double *));
+	u_new = memalign(CACHE_LINE_SIZE, (n + 2)*(n + 2)* sizeof(double *)); 
+	f = memalign(CACHE_LINE_SIZE, (n + 2)*(n + 2)* sizeof(double *));
 	if(strcmp(algo,"jacobi")==0){
 		if (u_old == NULL  || u_new == NULL | f == NULL) {
 		    fprintf(stderr, "Memory allocation error...\n");
@@ -64,7 +64,7 @@ main( int argc, char *argv[] ){
 
 	/* Initialize arrays */
 	if(strcmp(test,"test")==0){
-		sol = memalign(0x40, (n + 2)*(n + 2)* sizeof(double *));
+		sol = memalign(CACHE_LINE_SIZE, (n + 2)*(n + 2)* sizeof(double *));
 		init_u_test(n, algo, u_old, u_new);
 		init_f_test(n, h, f);
 		init_sol(n, h, sol);
@@ -76,7 +76,7 @@ main( int argc, char *argv[] ){
 	
 	te = omp_get_wtime();	
 	/* Start the time loop */
-	#pragma omp parallel default(none) shared(n,h,u_old,u_new,f,max_it,algo,temp) private(k,i,j)
+	#pragma omp parallel default(none) shared(n,h,f,max_it,algo,temp,u_old,u_new) private(k,i,j)
 	{
 	//while(d > threshold && k < max_it){
 	for(k = 0; k < max_it; k++){
@@ -92,9 +92,9 @@ main( int argc, char *argv[] ){
 		//d = euclidian_norm(n, u_old, u_new);
 
 		//now that the values are updated we copy new values into the old array
+		#pragma omp single
+		{
 		if(strcmp(algo,"jacobi")==0){
-			#pragma omp single
-			{
 			temp = u_old;
 			u_old = u_new;
 			u_new = temp;	
