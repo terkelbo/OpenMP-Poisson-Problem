@@ -2,7 +2,7 @@
 
 #BSUB -q hpcintro
 #BSUB -J MFlopfig
-#BSUB -n 16
+#BSUB -n 24
 #BSUB -R "span[hosts=1]"
 #BSUB -R "rusage[mem=2GB]"
 #BSUB -M 3GB
@@ -16,7 +16,7 @@ module load studio
 
 THREADS="1 2 4 8 16"
 N="10 20 30 50 100 150 200 250 500 1000 1250 1500 2000 2500 2830"
-IMPLEMENTATIONS="poisson_naive poisson_openmp1 poisson_openmp2"
+IMPLEMENTATIONS="poisson_ccnuma" #"poisson_naive poisson_openmp1 poisson_openmp2"
 
 for impl in $IMPLEMENTATIONS
 do
