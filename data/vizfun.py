@@ -3,6 +3,7 @@ import matplotlib as mpl
 mpl.use('Agg')
 import matplotlib.pyplot as plt
 from matplotlib.ticker import ScalarFormatter
+import numpy as np
 
 font = {'size'   : 14}
 
@@ -73,6 +74,7 @@ for files, names in zip(['statfun_poisson_naive.dat','statfun_poisson_openmp1.da
 	df1['Speedup'] = df1['WallTimeFirst']/df1['WallTime']
 	df1.set_index("Threads", inplace=True)
 	ax = df1.groupby("Size")["Speedup"].plot(legend=True, style ='*-')
+	plt.plot(np.array([1,2,4,8,16]),np.array([1,2,4,8,16]),'k-',label='Linear scaling')
 	plt.legend(loc='center left', bbox_to_anchor=(1, 0.5))
 	plt.xlabel('Number of threads')
 	plt.ylabel('Speedup')
