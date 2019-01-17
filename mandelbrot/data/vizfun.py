@@ -25,7 +25,7 @@ ax = plt.gca().xaxis
 ax.set_major_formatter(ScalarFormatter()) 
 ax = plt.gca().yaxis 
 ax.set_major_formatter(ScalarFormatter()) 
-plt.savefig('TreadsWallTime.png', bbox_inches='tight')
+plt.savefig('ThreadsWallTime_mandel.png', bbox_inches='tight')
 plt.close()
 
 plt.figure()
@@ -42,7 +42,7 @@ ax = plt.gca().xaxis
 ax.set_major_formatter(ScalarFormatter())
 #ax = plt.gca().yaxis
 #ax.set_major_formatter(ScalarFormatter())
-plt.savefig('WallTime.png', bbox_inches='tight')
+plt.savefig('WallTime_mandel.png', bbox_inches='tight')
 plt.close()
 
 df1 = pd.read_csv('statfun.dat',delim_whitespace=True,header=None,names=["Threads","MaxIter","Memory","WallTime","Size"])
@@ -64,5 +64,5 @@ ax = plt.gca().xaxis
 ax.set_major_formatter(ScalarFormatter())
 #ax = plt.gca().yaxis
 #ax.set_major_formatter(ScalarFormatter())
-plt.savefig('Speedup.png', bbox_inches='tight')
+plt.savefig('Speedup_mandel.png', bbox_inches='tight')
 plt.close()

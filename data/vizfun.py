@@ -59,7 +59,7 @@ ax = plt.gca().xaxis
 ax.set_major_formatter(ScalarFormatter()) 
 ax = plt.gca().yaxis 
 #ax.set_major_formatter(ScalarFormatter()) 
-plt.savefig('TreadsWallTime.png', bbox_inches='tight')
+plt.savefig('ThreadsWallTime.png', bbox_inches='tight')
 plt.close()
 
 df1 = pd.read_csv('statfun.dat',delim_whitespace=True,header=None,names=["Threads","MaxIter","Memory","MFlops","WallTime","Size"])

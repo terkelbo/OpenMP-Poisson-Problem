@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "mandel.h"
-#include "writepng.h"
+// #include "writepng.h"
 #include <omp.h>
 
 int
