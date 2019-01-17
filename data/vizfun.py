@@ -44,7 +44,7 @@ for files in ['statfun_poisson_naive.dat','statfun_poisson_openmp1.dat','statfun
 	plt.savefig('WallTime_%s.png' % files, bbox_inches='tight')
 	plt.close()
 
-	df1 = pd.read_csv('statfun.dat',delim_whitespace=True,header=None,names=["Threads","MaxIter","Memory","MFlops","WallTime","Size"])
+	df1 = pd.read_csv(files,delim_whitespace=True,header=None,names=["Threads","MaxIter","Memory","MFlops","WallTime","Size"])
 	df1 = df1.loc[df1['Size'] >= 100]
 	plt.figure()
 	df1.set_index("Threads", inplace=True)
@@ -63,7 +63,7 @@ for files in ['statfun_poisson_naive.dat','statfun_poisson_openmp1.dat','statfun
 	plt.savefig('ThreadsWallTime_%s.png' % files, bbox_inches='tight')
 	plt.close()
 
-	df1 = pd.read_csv('statfun.dat',delim_whitespace=True,header=None,names=["Threads","MaxIter","Memory","MFlops","WallTime","Size"])
+	df1 = pd.read_csv(files,delim_whitespace=True,header=None,names=["Threads","MaxIter","Memory","MFlops","WallTime","Size"])
 	df1 = df1.loc[df1['Size'] >= 100]
 	plt.figure()
 	df1 = df1.sort_values(['Size','Threads'],ascending=True)
