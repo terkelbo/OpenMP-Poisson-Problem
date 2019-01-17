@@ -8,7 +8,7 @@ font = {'size'   : 14}
 
 mpl.rc('font', **font)
 
-for files in ['statfun_poisson_naive.dat','statfun_poisson_openmp1.dat','statfun_poisson_openmp2.dat']:
+for files, names in zip(['statfun_poisson_naive.dat','statfun_poisson_openmp1.dat','statfun_poisson_openmp2.dat'],['statfun_poisson_naive','statfun_poisson_openmp1','statfun_poisson_openmp2']):
 	df1 = pd.read_csv(files,delim_whitespace=True,header=None,names=["Threads","MaxIter","Memory","MFlops","WallTime","Size"])
 
 	df1 = df1.loc[df1['Threads'] < 16]
@@ -26,7 +26,7 @@ for files in ['statfun_poisson_naive.dat','statfun_poisson_openmp1.dat','statfun
 	ax.set_major_formatter(ScalarFormatter()) 
 	#ax = plt.gca().yaxis 
 	#ax.set_major_formatter(ScalarFormatter()) 
-	plt.savefig('MFlops_%s.png' % files, bbox_inches='tight')
+	plt.savefig('MFlops_%s.png' % names, bbox_inches='tight')
 	plt.close()
 
 	plt.figure()
@@ -41,7 +41,7 @@ for files in ['statfun_poisson_naive.dat','statfun_poisson_openmp1.dat','statfun
 	ax.set_major_formatter(ScalarFormatter())
 	#ax = plt.gca().yaxis
 	#ax.set_major_formatter(ScalarFormatter())
-	plt.savefig('WallTime_%s.png' % files, bbox_inches='tight')
+	plt.savefig('WallTime_%s.png' % names, bbox_inches='tight')
 	plt.close()
 
 	df1 = pd.read_csv(files,delim_whitespace=True,header=None,names=["Threads","MaxIter","Memory","MFlops","WallTime","Size"])
@@ -60,7 +60,7 @@ for files in ['statfun_poisson_naive.dat','statfun_poisson_openmp1.dat','statfun
 	ax.set_major_formatter(ScalarFormatter()) 
 	ax = plt.gca().yaxis 
 	#ax.set_major_formatter(ScalarFormatter()) 
-	plt.savefig('ThreadsWallTime_%s.png' % files, bbox_inches='tight')
+	plt.savefig('ThreadsWallTime_%s.png' % names, bbox_inches='tight')
 	plt.close()
 
 	df1 = pd.read_csv(files,delim_whitespace=True,header=None,names=["Threads","MaxIter","Memory","MFlops","WallTime","Size"])
@@ -82,6 +82,6 @@ for files in ['statfun_poisson_naive.dat','statfun_poisson_openmp1.dat','statfun
 	ax.set_major_formatter(ScalarFormatter())
 	#ax = plt.gca().yaxis
 	#ax.set_major_formatter(ScalarFormatter())
-	plt.savefig('Speedup_%s.png' % files, bbox_inches='tight')
+	plt.savefig('Speedup_%s.png' % names, bbox_inches='tight')
 	plt.close()
 
