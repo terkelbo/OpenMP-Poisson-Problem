@@ -10,6 +10,9 @@ init_u(int n, char * algo, double u_start, double * restrict u_old, double * res
 
 	int i, j;
 
+	#pragma omp parallel default(none) shared(n, algo, u_start, u_old, u_new) private(i,j)
+	{
+	#pragma omp for schedule(runtime)
 	for(i = 0; i < (n + 2); i++){
 		for(j = 0; j < (n + 2); j++){
 			if(j == (n + 1) || i == 0 || i == (n + 1)){
@@ -32,6 +35,7 @@ init_u(int n, char * algo, double u_start, double * restrict u_old, double * res
 			}
 		}
 	}
+	}
 }
 
 void
@@ -39,6 +43,9 @@ init_u_test(int n, char * algo, double * restrict u_old, double * restrict u_new
 
 	int i, j;
 
+	#pragma omp parallel default(none) shared(n, algo, u_old, u_new) private(i,j)
+	{
+	#pragma omp for schedule(runtime)
 	for(i = 0; i < (n + 2); i++){
 		for(j = 0; j < (n + 2); j++){
 			if(strcmp(algo,"jacobi")==0){
@@ -47,6 +54,7 @@ init_u_test(int n, char * algo, double * restrict u_old, double * restrict u_new
 			u_new[i*(n + 2) + j] = 0.0;
 		}
 	}
+	}
 }
 
 void
@@ -54,6 +62,9 @@ init_f(int n, double h, double * restrict f){
 
 	int i, j;
 
+	#pragma omp parallel default(none) shared(n, h, f) private(i,j)
+	{
+	#pragma omp for schedule(runtime)
 	for(i = 0; i < (n + 2); i++){
 		for(j = 0; j < (n + 2); j++){
 			if((double)(-1 + i*h) >= 0.0 && (double)(-1 + i*h) <= 0.33 && (double)(-1 + j*h) >= -0.66 && (double)(-1 + j*h) <= -0.33){
@@ -64,6 +75,7 @@ init_f(int n, double h, double * restrict f){
 			}
 		}
 	}
+	}
 }
 
 void
@@ -72,12 +84,16 @@ init_f_test(int n, double h, double * restrict f){
 	int i, j;
 	double x, y;
 
+	#pragma omp parallel default(none) shared(n, h, f) private(i,j,x,y)
+	{
+	#pragma omp for schedule(runtime)
 	for(i = 0; i < (n + 2); i++){
 		for(j = 0; j < (n + 2); j++){
 			x = -1 + h*i;
 			y = -1 + h*j;
 			f[i*(n + 2) + j] = 2*M_PI*M_PI*sin(M_PI*x)*sin(M_PI*y);
 		}
+	}
 	}
 }
 
@@ -87,6 +103,9 @@ init_sol(int n, double h, double * restrict sol){
 	int i, j;
 	double x, y;
 
+	#pragma omp parallel default(none) shared(n, h, sol) private(i,j,x,y)
+	{
+	#pragma omp for schedule(runtime)
 	for(i = 0; i < (n + 2); i++){
 		for(j = 0; j < (n + 2); j++){
 			x = -1 + h*i;
@@ -98,6 +117,7 @@ init_sol(int n, double h, double * restrict sol){
 				sol[i*(n + 2) + j] = sin(M_PI*x)*sin(M_PI*y);				
 			}
 		}
+	}
 	}
 }
 

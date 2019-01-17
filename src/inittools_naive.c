@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <math.h>
+#include <string.h>
 #include "inittools_naive.h"
 
 #define M_PI 3.14159265358979323846
