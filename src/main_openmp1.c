@@ -114,7 +114,9 @@ main( int argc, char *argv[] ){
 	printf("%10.2li %10.2lf %le %le\n", 
 	   max_it, memory, mflops, te);
 
-	free(u_old);
+	if(strcmp(algo,"jacobi")==0){
+		free(u_old);
+	}
 	free(u_new);
 	free(f);
 	if(strcmp(test,"test")==0){

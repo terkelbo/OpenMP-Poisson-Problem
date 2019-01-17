@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-//#include <malloc.h>
 #include <math.h>
 
 #include "inittools_naive.h"
@@ -89,12 +88,15 @@ main( int argc, char *argv[] ){
 		//calculate 2-norm between old and new
 		//d = euclidian_norm(n, u_old, u_new);
 
+
 		//now that the values are updated we copy new values into the old array
 		if(strcmp(algo,"jacobi")==0){
 			temp = u_old;
 			u_old = u_new;
 			u_new = temp;	
 			}
+		
+		//k += 1;
 	}
 	te = omp_get_wtime() - te;
 	mflops   = 1.0e-06*n*n*max_it*CHECK_FLOP/te;
@@ -108,7 +110,9 @@ main( int argc, char *argv[] ){
 	printf("%10.2li %10.2lf %le %le\n", 
 	   max_it, memory, mflops, te);
 
-	free_2d(u_old);
+	if(strcmp(algo,"jacobi")==0){
+		free_2d(u_old);
+	}
 	free_2d(u_new);
 	free_2d(f);
 	if(strcmp(test,"test")==0){
