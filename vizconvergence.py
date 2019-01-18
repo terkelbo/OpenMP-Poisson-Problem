@@ -2,7 +2,7 @@ import pandas as pd
 import matplotlib as mpl
 mpl.use('Agg')
 import matplotlib.pyplot as plt
-from matplotlib.ticker import ScalarFormatter
+from matplotlib.ticker import ScalarFormatter, FormatStrFormatter
 
 df1 = pd.read_csv('convergence.dat',delim_whitespace=True,header=None,names=["Algorithm", "Iterations", "Euclidian Norm"])
 
@@ -24,8 +24,10 @@ plt.legend(loc='upper right')
 plt.xlabel('Memory (Kbytes)')
 plt.ylabel('Iterations per second')
 plt.xscale('log',basex=4)
+plt.yscale('log',basey=10)
 ax = plt.gca().xaxis 
-ax.set_major_formatter(ScalarFormatter()) 
+ax.set_major_formatter(FormatStrFormatter('%.2f'))
+plt.gca().yaxis.set_major_formatter(FormatStrFormatter('%.2f')) 
 plt.savefig('iterationspersecond.png', bbox_inches='tight')
 plt.close()
 
