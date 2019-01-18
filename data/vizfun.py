@@ -9,7 +9,8 @@ font = {'size'   : 14}
 
 mpl.rc('font', **font)
 
-for files, names in zip(['statfun_poisson_naive.dat','statfun_poisson_openmp1.dat','statfun_poisson_openmp2.dat'],['statfun_poisson_naive','statfun_poisson_openmp1','statfun_poisson_openmp2']):
+for files, names in zip(['statfun_poisson_naive.dat','statfun_poisson_openmp1.dat','statfun_poisson_openmp2.dat','nonopt_statfun_poisson_ccnuma.dat'],
+						['statfun_poisson_naive','statfun_poisson_openmp1','statfun_poisson_openmp2','nonopt_statfun_poisson_ccnuma']):
 	df1 = pd.read_csv(files,delim_whitespace=True,header=None,names=["Threads","MaxIter","Memory","MFlops","WallTime","Size"])
 
 	df1 = df1.loc[df1['Threads'] < 16]
