@@ -61,7 +61,7 @@ plt.legend(loc='center left', bbox_to_anchor=(1, 0.5))
 plt.xlabel('Number of threads')
 plt.ylabel('Speedup')
 plt.xscale('log',basex=2)
-#plt.yscale('log',basey=2)
+plt.yscale('log',basey=2)
 ax = plt.gca().xaxis
 ax.set_major_formatter(ScalarFormatter())
 ax = plt.gca().yaxis
