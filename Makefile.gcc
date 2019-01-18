@@ -19,7 +19,7 @@ CC  = gcc
 CFLAGS= $(OPT) $(PIC) $(XOPTS) -std=c99
 
 SOFLAGS = 
-XLIBS   =  -lm fxopenmp
+XLIBS   =  -lm -fopenmp
 
 all: $(TARGET_NAIVE) $(TARGET_1) $(TARGET_2) $(TARGET_3) $(TARGET_WRITE)
 
