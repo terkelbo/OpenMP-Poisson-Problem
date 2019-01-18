@@ -12,6 +12,7 @@
 #BSUB -eo MFlopfig_gcc.err
 
 module load studio
+module load gcc/8.2.0
 
 make -f Makefile.gcc clean
 make -f Makefile.gcc

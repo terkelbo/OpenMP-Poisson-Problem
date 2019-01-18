@@ -4,13 +4,18 @@ mpl.use('Agg')
 import matplotlib.pyplot as plt
 from matplotlib.ticker import ScalarFormatter, FormatStrFormatter
 import numpy as np
+from matplotlib import cm
+
+color=[(0.1,0.4,0.2,0.4),(0.2,0.4,0.6,0.8),(0.1,0.1,0.1,0.1),(0.2,0.2,0.2,0.2),
+      	(0.7,0.9,0.1,0.5),(0.4,0.4,0.4,0.4),(0.1,0.5,0.8,0.2),(0.3,0.3,0.8,0.7),
+        (0.9,0.7,0.2,0.1),(0.6,0.6,0.6,0.6),(0.6,0.1,0.6,0.1),(0.9,0.8,0.2,0.2)]
 
 font = {'size'   : 14}
 
 mpl.rc('font', **font)
 
-for files, names in zip(['statfun_poisson_naive.dat','statfun_poisson_openmp1.dat','statfun_poisson_openmp2.dat','nonopt_statfun_poisson_ccnuma.dat'],
-						['statfun_poisson_naive','statfun_poisson_openmp1','statfun_poisson_openmp2','nonopt_statfun_poisson_ccnuma']):
+for files, names in zip(['statfun_poisson_naive.dat','statfun_poisson_openmp1.dat','statfun_poisson_openmp2.dat','nonopt_statfun_poisson_ccnuma.dat','gcc_statfun_poisson_ccnuma.dat'],
+						['statfun_poisson_naive','statfun_poisson_openmp1','statfun_poisson_openmp2','nonopt_statfun_poisson_ccnuma','gcc_statfun_poisson_ccnuma']):
 	df1 = pd.read_csv(files,delim_whitespace=True,header=None,names=["Threads","MaxIter","Memory","MFlops","WallTime","Size"])
 
 	df1 = df1.loc[df1['Threads'] < 16]
