@@ -26,7 +26,7 @@ plt.ylabel('Iterations per second')
 plt.xscale('log',basex=4)
 plt.yscale('log',basey=10)
 ax = plt.gca().xaxis 
-ax.set_major_formatter(FormatStrFormatter('%.2f'))
+ax.set_major_formatter(ScalarFormatter())
 plt.gca().yaxis.set_major_formatter(FormatStrFormatter('%.2f')) 
 plt.savefig('iterationspersecond.png', bbox_inches='tight')
 plt.close()
