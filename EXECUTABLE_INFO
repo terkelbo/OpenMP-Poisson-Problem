@@ -1,0 +1,4 @@
+poisson_naive: This is the executable running the 1st implementation of the parallelization of the Jacobi algorithm.
+poisson_openmp1: This is the executable running what is referred to as the 2nd implementation of parallelization.
+poisson_ccnuma: This is the executable taking use of parallel data initialization and thread bindings. This is referred to as the 3rd implementation in the report.
+poisson_writefiles: Should not be used. This is not mentioned in the report, is simple used to create som of the initial figures where we compare convergence between Jacobi and Gauss-Seidel.
