@@ -14,7 +14,7 @@
 module load studio
 
 make clean
-make OPT="-g -xopenmp"
+make OPT="-g -xopenmp=noopt"
 
 
 THREADS="1 2 4 8 16"
