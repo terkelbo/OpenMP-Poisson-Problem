@@ -2,7 +2,7 @@ import pandas as pd
 import matplotlib as mpl
 mpl.use('Agg')
 import matplotlib.pyplot as plt
-from matplotlib.ticker import ScalarFormatter
+from matplotlib.ticker import ScalarFormatter, FormatStrFormatter
 import numpy as np
 
 font = {'size'   : 14}
@@ -64,7 +64,7 @@ plt.xscale('log',basex=2)
 #plt.yscale('log',basey=2)
 ax = plt.gca().xaxis
 ax.set_major_formatter(ScalarFormatter())
-#ax = plt.gca().yaxis
-#ax.set_major_formatter(ScalarFormatter())
+ax = plt.gca().yaxis
+ax.set_major_formatter(FormatStrFormatter('%.2f'))
 plt.savefig('Speedup_mandel.png', bbox_inches='tight')
 plt.close()
