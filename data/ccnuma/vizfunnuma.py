@@ -4,7 +4,7 @@ import pandas as pd
 import matplotlib as mpl
 mpl.use('Agg')
 import matplotlib.pyplot as plt
-from matplotlib.ticker import ScalarFormatter
+from matplotlib.ticker import ScalarFormatter, FormatStrFormatter
 
 sys.path.append('../')
 
@@ -87,11 +87,11 @@ for files, names in zip(files_list, names_list):
 	plt.xlabel('Number of threads')
 	plt.ylabel('Speedup')
 	plt.xscale('log',basex=2)
-	#plt.yscale('log',basey=2)
+	plt.yscale('log',basey=2)
 	ax = plt.gca().xaxis
 	ax.set_major_formatter(ScalarFormatter())
-	#ax = plt.gca().yaxis
-	#ax.set_major_formatter(ScalarFormatter())
+	ax = plt.gca().yaxis
+	ax.set_major_formatter(FormatStrFormatter('%.2f'))
 	plt.savefig('Speedup_%s.png' % names, bbox_inches='tight')
 	plt.close()
 
